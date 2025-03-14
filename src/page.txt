@@ -1,0 +1,19 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+import React from 'react';
+
+const {placeholder} = dynamic(() => import('./{placeholder}'), {
+  ssr: false,
+});
+
+const Draw{placeholder} = () => {
+  return (
+    <div>
+      <h1> 正多角形の再帰的な描画 </h1>
+      <{placeholder} />
+    </div>
+  );
+}
+
+export default Draw{placeholder};
