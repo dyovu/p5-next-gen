@@ -9,8 +9,8 @@ const {placeholder} = dynamic(() => import('./{placeholder}'), {
 
 const Draw{placeholder} = () => {
   return (
-    <div>
-      <h1> 正多角形の再帰的な描画 </h1>
+    <div> 
+      <h1> {placeholder}のページです </h1>
       <{placeholder} />
     </div>
   );
