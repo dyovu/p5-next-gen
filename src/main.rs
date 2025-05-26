@@ -10,7 +10,7 @@ const TEMPLATE_GENERIC: &str = include_str!("templates/template.txt");
 
 fn main() {
     println!("パスカルケースで新しいディレクトリ名を入力してください");
-    println!("パスを指定することもできます");
+    println!("パスを指定することもできます (ex: src/app/(pages)/");
 
     // 標準入力でディレクトリ名もしくはパスを受け取る
     let mut input = String::new();
