@@ -21,11 +21,11 @@ fn main() {
 
         let arg: Vec<&str> = input.trim().split('/').collect();
         let arg_len: usize = arg.len();
-        new_dir_name= arg.last().expect("有効なディレクトリ名を入力してください").to_string();
-        parent_dir= arg
+        new_dir_name = arg.last().expect("有効なディレクトリ名を入力してください").to_string();
+        parent_dir = arg
             .iter()
-            .take(arg_len - 1)
-            .fold(PathBuf::new(), |mut acc, &dir| {
+            .take(arg_len - 1) //最後の要素以外を取得する
+            .fold(PathBuf::new(), |mut acc, &dir| { // foldは2つの引数(初期値とクロージャ)を取る
                 acc.push(dir);
                 acc
             });
@@ -37,7 +37,7 @@ fn main() {
         if !new_dir_name.chars().next().unwrap().is_uppercase() {
             eprintln!("新しく作成するディレクトリ名はパスカルケースで始まる必要があります。");
         }else{
-            break; // 有効なディレクトリ名が入力された場合はループを抜ける
+            break; // Okだったらループを抜ける
         }
     }
     
@@ -66,7 +66,7 @@ fn main() {
 
     let dir_path = parent_dir.join(&new_dir_name);
     if let Err(e) = create_dir(&dir_path) {
-        eprintln!("Failed to create directory {}: {}", new_dir_name, e);
+        eprintln!("ディレクトリ {} の作成に失敗しました: {}", new_dir_name, e);
         std::process::exit(1);
     }
 
@@ -89,9 +89,9 @@ fn main() {
 
         // ファイルを作成
         if let Err(e) = write(&file_path, content) {
-            eprintln!("Failed to create {}: {}", file_path.display(), e);
+            eprintln!("ファイル {} の作成に失敗しました: {}", file_path.display(), e);
         } else {
-            println!("Created {}", file_path.display());
+            println!("作成しました: {}", file_path.display());
         }
     }
 }

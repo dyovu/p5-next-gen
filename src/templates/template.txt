@@ -36,7 +36,21 @@ const {placeholder} = () => {
   }, []);
 
 
-  // キャンバスをリセットするための関数
+  
+  // Draw関数を停止するための関数
+  const stopDrawing = () => {
+    console.log('停止')
+    SHOULD_STOP.current = true;
+  };
+
+  // Draw関数を再開するための関数
+  const reStartDrawing = () => {
+    console.log('再開')
+    // drawは停止状態だからdrawの中でloopを呼んでも意味ない、そのためここでloopを呼ぶ
+    SHOULD_STOP.current = false;
+    P5_INSTANCE.current?.loop();
+  };
+
   const resetDrawing = () => {
     SHOULD_STOP.current = false;
     
@@ -48,18 +62,6 @@ const {placeholder} = () => {
         // 描画を再開
         P5_INSTANCE.current.loop();
     }
-  };
-  // Draw関数を停止するための関数
-  const stopDrawing = () => {
-    console.log('停止')
-    SHOULD_STOP.current = true;
-  };
-  // Draw関数を再開するための関数
-  const reStartDrawing = () => {
-    console.log('再開')
-    // drawは停止状態だからdrawの中でloopを呼んでも意味ない、そのためここでloopを呼ぶ
-    SHOULD_STOP.current = false;
-    P5_INSTANCE.current?.loop();
   };
 
 
