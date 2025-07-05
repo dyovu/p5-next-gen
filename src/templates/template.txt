@@ -4,20 +4,23 @@ import React, { useEffect, useRef } from 'react';
 import p5 from 'p5';
 
 import '@/styles/global.css';
+
+import { stopDrawing, reStartDrawing } from '@/utils/drawingControls';
+import { resetDrawing } from './controls';
 import setup from './Setup';
 import draw from './Draw';
 
 const {placeholder} = () => {
-  const SHOULD_STOP = useRef(false); 
-  const P5_INSTANCE = useRef<p5 | null>(null);
-
+  const isStoped = useRef(false); 
+  const p5Instance = useRef<p5 | null>(null);
+  
 
   useEffect(() => {
     const sketch = (p: p5) => {
       p.setup = () => setup(p);
       p.draw = () => {
         draw(p)
-        if (SHOULD_STOP.current){
+        if (isStoped.current){
           p.noLoop();
         }else{
           p.loop();
@@ -25,55 +28,26 @@ const {placeholder} = () => {
       };
     };
 
-    P5_INSTANCE.current= new p5(
+    p5Instance.current= new p5(
       sketch,
       document.getElementById('p5-container')!
     );
 
     return () => {
-      P5_INSTANCE.current?.remove();
+      p5Instance.current?.remove();
     };
   }, []);
 
 
-  
-  // Draw関数を停止するための関数
-  const stopDrawing = () => {
-    console.log('停止')
-    SHOULD_STOP.current = true;
-  };
-
-  // Draw関数を再開するための関数
-  const reStartDrawing = () => {
-    console.log('再開')
-    // drawは停止状態だからdrawの中でloopを呼んでも意味ない、そのためここでloopを呼ぶ
-    SHOULD_STOP.current = false;
-    P5_INSTANCE.current?.loop();
-  };
-
-  const resetDrawing = () => {
-    SHOULD_STOP.current = false;
-    
-    if (P5_INSTANCE.current) {
-        // キャンバスをクリア（背景色で塗りつぶし）
-        P5_INSTANCE.current.background(255); // 白で塗りつぶし、または適切な背景色
-        // または P5_INSTANCE.current.clear(); でも可
-        
-        // 描画を再開
-        P5_INSTANCE.current.loop();
-    }
-  };
-
-
   return (
     <div>
-      <button onClick={stopDrawing} style={{ marginTop: '10px', padding: '10px' }}>
+      <button onClick={() => stopDrawing(isStoped)} style={{ marginTop: '10px', padding: '10px' }}>
         Stop
       </button>
-      <button onClick={reStartDrawing} style={{ marginTop: '10px', padding: '10px' }}>
+      <button onClick={() => reStartDrawing(isStoped, p5Instance)} style={{ marginTop: '10px', padding: '10px' }}>
         Restart
       </button>
-      <button onClick={resetDrawing} style={{ marginTop: '10px', padding: '10px' }}>
+      <button onClick={() => resetDrawing(isStoped, p5Instance)} style={{ marginTop: '10px', padding: '10px' }}>
         Reset
       </button>
       <div id='p5-container'></div>

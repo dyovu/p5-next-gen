@@ -7,6 +7,7 @@ const TEMPLATE_PAGE: &str = include_str!("templates/page.txt");
 const TEMPLATE_DRAW: &str = include_str!("templates/Draw.txt");
 const TEMPLATE_SETUP: &str = include_str!("templates/Setup.txt");
 const TEMPLATE_GENERIC: &str = include_str!("templates/template.txt");
+const TEMPLATE_CONTROLS : &str = include_str!("templates/controls.txt");
 
 fn main() {
     println!("パスカルケースで新しいディレクトリ名を入力してください");
@@ -78,6 +79,7 @@ fn main() {
         ("Draw.ts", TEMPLATE_DRAW),
         ("Setup.ts", TEMPLATE_SETUP),
         (&name, TEMPLATE_GENERIC), // 引数を使ったファイル名に対応するテンプレート
+        ("controls.ts", TEMPLATE_CONTROLS),
     ];
 
     for (filename, template) in filenames {
