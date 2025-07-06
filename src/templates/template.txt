@@ -20,11 +20,6 @@ const {placeholder} = () => {
       p.setup = () => setup(p);
       p.draw = () => {
         draw(p)
-        if (isStoped.current){
-          p.noLoop();
-        }else{
-          p.loop();
-        }
       };
     };
 
