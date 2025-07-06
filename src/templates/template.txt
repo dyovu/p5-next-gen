@@ -5,7 +5,7 @@ import p5 from 'p5';
 
 import '@/styles/global.css';
 
-import { stopDrawing, reStartDrawing } from '@/utils/drawingControls';
+import { toggleDrawing } from '@/utils/drawingControls';
 import { resetDrawing } from './controls';
 import setup from './Setup';
 import draw from './Draw';
@@ -41,11 +41,8 @@ const {placeholder} = () => {
 
   return (
     <div>
-      <button onClick={() => stopDrawing(isStoped)} style={{ marginTop: '10px', padding: '10px' }}>
-        Stop
-      </button>
-      <button onClick={() => reStartDrawing(isStoped, p5Instance)} style={{ marginTop: '10px', padding: '10px' }}>
-        Restart
+      <button onClick={() => toggleDrawing(isStoped, p5Instance, setIsStopedDisplay)} style={{ marginTop: '10px', padding: '10px' }}>
+        {isStoped.current ? 'Start' : 'Stop'}
       </button>
       <button onClick={() => resetDrawing(isStoped, p5Instance)} style={{ marginTop: '10px', padding: '10px' }}>
         Reset
