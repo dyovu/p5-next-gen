@@ -11,9 +11,10 @@ import setup from './Setup';
 import draw from './Draw';
 
 const {placeholder} = () => {
-  const isStoped = useRef(false); 
   const p5Instance = useRef<p5 | null>(null);
-  
+
+  const isStoped = useRef(false); 
+  const [isStopedDisplay, setIsStopedDisplay] = useState(false);
 
   useEffect(() => {
     const sketch = (p: p5) => {
